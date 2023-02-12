@@ -23,7 +23,7 @@ class DataPreprocessing(object):
     def getFtpData(self):
         ftp_path=os.path.join(self.ftp_resource_url,self.ftp_resource,self.ftp_subresource)
         local_file_dir=os.path.join(self.local_dir,self.ftp_resource)
-        local_file_path=os.path.join(local_file_dir,self.ftp_resource)
+        local_file_path=os.path.join(local_file_dir,self.ftp_subresource)
         if not os.path.exists(local_file_dir):
             os.makedirs(local_file_dir)
             print("successfully created local_file_dir: {}".format(local_file_dir))    
