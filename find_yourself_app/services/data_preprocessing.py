@@ -11,8 +11,9 @@ warnings.filterwarnings('ignore',category=DeprecationWarning)
 
 class DataPreprocessing(object):
     
-    def __init__(self,local_dir,genome_lookup,ftp_resource_url,ftp_resource,ftp_subresource,vcf_file,asinp_file):
+    def __init__(self,local_dir,external_dir,genome_lookup,ftp_resource_url,ftp_resource,ftp_subresource,vcf_file,asinp_file):
         self.local_dir=local_dir
+        self.external_dir=external_dir
         self.genome_lookup=genome_lookup
         self.ftp_resource_url=ftp_resource_url
         self.ftp_resource=ftp_resource
@@ -36,12 +37,16 @@ class DataPreprocessing(object):
         return ftp_status
 
     def vcfParser(self):
-        vcf_reader = vcf.Reader(open(os.path.join(self.local_dir,self.vcf_file), 'r'))   
+        vcf_file_path=os.path.join(self.external_dir,self.vcf_file)
+        vcf_reader = vcf.Reader(open(vcf_file_path), 'r')   
         return vcf_reader
 
     def getGenomeSamples(self):
-        genome_samples=pd.read_csv(os.path.join(self.local_dir,self.sub_resource),sep="\t")
+        local_file_dir=os.path.join(self.local_dir,self.ftp_resource)
+        local_file_path=os.path.join(local_file_dir,self.ftp_subresource)
+        genome_samples=pd.read_csv(local_file_path,sep="\t")
         genome_samples=genome_samples[['sample', 'pop', 'super_pop', 'gender']]
+        return genome_samples
         
     def getGenomeFact(self):
         vcf_reader=self.vcfParser()    
@@ -68,7 +73,8 @@ class DataPreprocessing(object):
         return genome_fact_pivot
 
     def getGenomeASINP(self):
-        df_kidd=pd.read_csv(os.path.join(self.local_dir,self.asinp_file))
+        asinp_file_path=os.path.join(self.external_dir,self.asinp_file)
+        df_kidd=pd.read_csv(os.path.join(asinp_file_path))
         df_kidd=df_kidd[['dbSNP rs#', 'Chr', 'Build 37 nt position', '73-population Fst']]
         df_kidd.columns=["snp_rs", "chrom", "build_37_nt_pos", "pop_73_fst"]
         df_kidd.loc[df_kidd.index,"build_37_nt_pos"]=df_kidd["build_37_nt_pos"].str.replace(",","")
@@ -78,20 +84,22 @@ if __name__=="__main__":
     with open ("configs/config.json","r") as f:
         config=json.load(f)
     local_dir=config["genomics"]["local_dir"]
+    external_dir=config["genomics"]["external_dir"]
     genome_lookup=config["genomics"]["genome_lookup"]
     ftp_resource_url=config["genomics"]["ftp_resource_url"]
     ftp_resource=config["genomics"]["ftp_resource"]
     ftp_sub_resource=config["genomics"]["ftp_subresource"]
     vcf_file=config["genomics"]["vcf_file"]
     asinp_file=config["genomics"]["asinp_file"]
-    dp=DataPreprocessing(local_dir,genome_lookup,ftp_resource_url,ftp_resource,ftp_sub_resource,vcf_file,asinp_file)
+    dp=DataPreprocessing(local_dir,external_dir,genome_lookup,ftp_resource_url,ftp_resource,ftp_sub_resource,vcf_file,asinp_file)
     ftp_status=dp.getFtpData()
     print(ftp_status)
     genome_samples=dp.getGenomeSamples()
     print("preprocessed genome samples :{}".format(genome_samples.shape))
     genome_fact=dp.getGenomeFact()
     print("preprocessed genome fact :{}".format(genome_fact.shape))
-    genome_fact_pivot=dp.getGenomeFactPivot()
+    genome_fact_pivot=dp.getGenomeFactPivot(genome_fact)
     print("preprocessed genome fact pivot :{}".format(genome_fact_pivot.shape))
     genome_asinp=dp.getGenomeASINP()
     print("preprocessed genome asinp :{}".format(genome_asinp.shape))
+    print("preprocessing done.....!")

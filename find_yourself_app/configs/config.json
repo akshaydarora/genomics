@@ -2,6 +2,7 @@
   "flask": {"key":"srapi", "username": "findyourselfapi", "password": "findyourselfpassword"},
   "genomics":{
     "local_dir":"genome_data",
+    "external_dir":"external_data",
     "genome_lookup":{"0|0":0, "0|1":1,"1|0":2,"1|1":3},
     "ftp_resource_url":"ftp://ftp.1000genomes.ebi.ac.uk",
     "ftp_resource":"vol1/ftp/release/20130502",
