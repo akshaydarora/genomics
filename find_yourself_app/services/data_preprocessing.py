@@ -80,7 +80,21 @@ class DataPreprocessing(object):
         df_kidd.loc[df_kidd.index,"build_37_nt_pos"]=df_kidd["build_37_nt_pos"].str.replace(",","")
         return df_kidd
 
-if __name__=="__main__":
+    def preprocess_main(self):
+        ftp_status=self.getFtpData()
+        print(ftp_status)
+        genome_samples=self.getGenomeSamples()
+        print("preprocessed genome samples :{}".format(genome_samples.shape))
+        genome_fact=self.getGenomeFact()
+        print("preprocessed genome fact :{}".format(genome_fact.shape))
+        genome_fact_pivot=self.getGenomeFactPivot(genome_fact)
+        print("preprocessed genome fact pivot :{}".format(genome_fact_pivot.shape))
+        genome_asinp=self.getGenomeASINP()
+        print("preprocessed genome asinp :{}".format(genome_asinp.shape))
+        print("preprocessing done.....!")
+        return genome_samples,genome_fact,genome_fact_pivot,genome_asinp
+
+def data_processor():
     with open ("configs/config.json","r") as f:
         config=json.load(f)
     local_dir=config["genomics"]["local_dir"]
@@ -92,14 +106,5 @@ if __name__=="__main__":
     vcf_file=config["genomics"]["vcf_file"]
     asinp_file=config["genomics"]["asinp_file"]
     dp=DataPreprocessing(local_dir,external_dir,genome_lookup,ftp_resource_url,ftp_resource,ftp_sub_resource,vcf_file,asinp_file)
-    ftp_status=dp.getFtpData()
-    print(ftp_status)
-    genome_samples=dp.getGenomeSamples()
-    print("preprocessed genome samples :{}".format(genome_samples.shape))
-    genome_fact=dp.getGenomeFact()
-    print("preprocessed genome fact :{}".format(genome_fact.shape))
-    genome_fact_pivot=dp.getGenomeFactPivot(genome_fact)
-    print("preprocessed genome fact pivot :{}".format(genome_fact_pivot.shape))
-    genome_asinp=dp.getGenomeASINP()
-    print("preprocessed genome asinp :{}".format(genome_asinp.shape))
-    print("preprocessing done.....!")
+    genome_samples,genome_fact,genome_fact_pivot,genome_asinp=dp.preprocess_main()
+    return genome_samples,genome_fact,genome_fact_pivot,genome_asinp
