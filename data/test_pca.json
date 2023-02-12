@@ -1,0 +1,21 @@
+{
+    "pca":
+        [
+            {
+                "x":1,
+                "y":2,
+                "z":3,
+                "color":"red",
+                "name":"class1"
+
+
+            },
+            {
+                "x":2,
+                "y":3,
+                "z":4,
+                "color":"blue",
+                "name":"class2"
+            }
+        ]
+}

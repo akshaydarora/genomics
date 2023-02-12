@@ -11,18 +11,22 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css" media=”screen” />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" media=”screen” />
 </head>
 <body>
     <div id="container_scatter"></div>
-    <script type="text/javascript" src="js/scatter3d.js"></script>
+    <script type="text/javascript" src="static/js/helpers.js"></script>
+    <script type="text/javascript">
+        var scatter_data = getScatterData('{{pca_data|tojson}}')
+    </script>
+    <script type="text/javascript" src="static/js/scatter3d.js"></script>
         <figure class="highcharts-figure">
             <p class="highcharts-description">
                 Chart Scatter.
             </p>
         </figure>
     <div id="container"></div>
-    <script type="text/javascript" src="js/wheel.js"></script>
+    <script type="text/javascript" src="static/js/wheel.js"></script>
         <figure class="highcharts-figure">
         <p class="highcharts-description">
             Chart showing a dependency wheel
