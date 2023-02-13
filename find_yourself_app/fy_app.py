@@ -1,9 +1,10 @@
 from flask import Flask
+from controller.api import api
 from workflow.data_training_workflow import data_training_workflow
 # from controller.api import apiclea
 
-# flask_app = Flask('findyourself')
-# flask_app.register_blueprint(api)
+flask_app = Flask('findyourself')
+flask_app.register_blueprint(api)
 # flask_app.register_blueprint(monitering)
 
 # def list_route(flaskapp):
