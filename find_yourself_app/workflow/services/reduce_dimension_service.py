@@ -22,7 +22,8 @@ def reduce_dimension_service(genome_samples,pivot_df, algorithm='PCA', n_compone
     :param n_components: The number of components to return in X_red
     :type n_components: int
     """
-    color_lookup={"EAS":"#40E0D0","AFR":"#722F37","AMR":"#CC7722","EUR":"#1F51FF","SAS":"#CD7F32"}
+    color_lookup={"EAS":"#FFBF00","AFR":"#40E0D0","AMR":"#DE3163","EUR":"#6495ED","SAS":"#AF7AC5"}
+    super_pop_lookup={"EAS":"EAST ASIA","AFR":"AFRICA","AMR":"AMERICA","EUR":"EUROPE","SAS":"SOUTH ASIA"}
     genome_dir="genome_data"
     df_encoded = get_one_hot_encoding(pivot_df)
     if algorithm == 'PCA':
@@ -31,8 +32,7 @@ def reduce_dimension_service(genome_samples,pivot_df, algorithm='PCA', n_compone
     transformed_df.columns=["x","y","z"]
     pca_df=pd.concat([transformed_df,genome_samples],axis=1)
     pca_df["color"]=pca_df["super_pop"].map(color_lookup)
-    # print(pca_df.head())
-    # print(pca_df.isnull().sum())
+    pca_df["pop_zone"]=pca_df["super_pop"].map(super_pop_lookup)
     if not os.path.exists(genome_dir):
       os.makedirs(genome_dir)
     pca_df.to_csv(os.path.join(genome_dir,"dim_reduce.csv"),index=False)

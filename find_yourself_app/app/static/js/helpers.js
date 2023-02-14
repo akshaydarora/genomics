@@ -1,5 +1,5 @@
 
-function getScatterData(vars) {
+function getChartData(vars) {
     vars=JSON.parse(vars)
     return vars
 }
