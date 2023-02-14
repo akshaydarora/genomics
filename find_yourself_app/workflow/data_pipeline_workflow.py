@@ -37,6 +37,8 @@ def data_testing_workflow(genome_test):
     test_class=get_classification_test(dim_red,genome_test)   
     print("classfication done..!")
     print(test_class)
+    # print("writing table :genome_fact_pivot ")
+    # data_loader_db("genome_test_request", genome_fact_pivot)
 
   
 
