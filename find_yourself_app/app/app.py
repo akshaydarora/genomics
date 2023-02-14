@@ -2,27 +2,67 @@ from flask import Flask, render_template
 import json
 import pandas as pd
 import numpy as np
+import os
+from sqlalchemy import create_engine
 
 app = Flask(__name__,static_folder="static")
 
+def get_sql_conn():
+    # credentials to be stored in config
+    engine = create_engine('postgresql://akshay:seguinbenn@0.0.0.0:5432/genome')
+    conn=engine.connect()
+    return conn
+
+def get_dim_red_data(dim_red_sql,conn):
+    dim_red_series=[]
+    dim_red_series_data={}
+    df_dim_red=pd.read_sql(dim_red_sql,conn)
+    uni_pop=df_dim_red["pop_zone"].unique()
+    for pop in uni_pop:
+        df_pop=df_dim_red[df_dim_red["pop_zone"]==pop].reset_index(drop=True)
+        randi=[np.random.choice(df_pop.shape[0]) for i in range(df_pop.shape[0])]
+        df_pop=df_pop.loc[randi]
+        df_pop=df_pop.head(100)
+        df_pop_color=df_pop["color"].values[0]
+        df_pop_json=df_pop.to_dict(orient="records")
+        dim_red_series_data["data"]=df_pop_json
+        dim_red_series_data["name"]=pop
+        dim_red_series_data["colorByPoint"]="true"
+        dim_red_series_data["accessibility"]= {"exposeAsGroupOnly": "true"}
+        dim_red_series_data["marker"]={"symbol":"circle","fillColor":"{}".format(df_pop_color)}
+        dim_red_series.append(dim_red_series_data)
+        dim_red_series_data={}
+    return dim_red_series
+
+
 @app.route('/dashboard')
 def dashboard():
-    return render_template('index.html',scatter_data=scatter_data,pca_data=df_pca_json)
+    return render_template('index.html',pca_data=df_pca_json,wheel_data=df_wheel_json)
     
 @app.route('/')
 def test():
     return "test"
 
 if __name__ == '__main__':
-    with open("data/scatter.json","r") as f:
-        scatter_data=json.load(f)
-    with open("data/pca_data.json","r") as f:
-        pca_data=json.load(f) 
-    df_pca=pd.read_csv("data/dim_reduce.csv")
-    randi=[np.random.choice(df_pca.shape[0]) for i in range(df_pca.shape[0])]
-    df_pca=df_pca.loc[randi]
-    df_pca=df_pca.head(500)
-    df_pca_json=df_pca.to_dict(orient="records")
-    with open("pca_data_red.json","w") as f:
-        json.dump(df_pca_json,f,indent=1)
+    conn=get_sql_conn()
+    dim_red_sql="select * from dim_reduce" 
+    df_pca_json=get_dim_red_data(dim_red_sql,conn)   
+    dep_wheel_sql='''
+    with tbl as (
+        SELECT gf.variant,gs.super_pop,sum(gf.genotype_enc) as sg FROM public.genome_sample_fact gf
+        Inner Join public.genome_samples gs
+        On gf.sample=gs.sample
+        Group by gf.variant,gs.super_pop
+        Order by sg desc,gf.variant desc
+        )	
+        select * from (
+            select super_pop as from,variant as to,sg as weight, 
+                row_number() over (partition by super_pop order by sg desc) as super_pop_rank 
+            from tbl) ranks
+        where super_pop_rank <= 5
+        order by weight desc;
+    '''
+    df_wheel=pd.read_sql(dep_wheel_sql,conn)
+    print(df_wheel.head())
+    df_wheel_json=df_wheel.to_dict(orient="records")
     app.run(host="localhost", port=5100, debug=True)    

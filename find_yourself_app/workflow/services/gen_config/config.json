@@ -8,6 +8,7 @@
     "ftp_resource":"vol1/ftp/release/20130502",
     "ftp_subresource":"integrated_call_samples_v3.20130502.ALL.panel",
     "vcf_file":"Kidd.55AISNP.1kG.vcf",
-    "asinp_file":"55_Kidd.csv"
+    "asinp_file":"55_Kidd.csv",
+    "genome_test_file":"genome_test.csv"
   }
 }

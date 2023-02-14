@@ -70,37 +70,7 @@ var chart = new Highcharts.Chart({
     legend: {
         enabled: true
     },
-    series: [{
- 
-        colorByPoint: true,
-        accessibility: {
-            exposeAsGroupOnly: true
-        },
-        data: datajson
-    },
-    {    
-        name:"test point", 
-        colorByPoint: true,
-        accessibility: {
-            exposeAsGroupOnly: true
-        },
-        marker:{
-            "symbol":"triangle"
-        },
-        data: [
-            {
-                "x": 0.35,
-                "y": -0.7557166431388952,
-                "z": 0.9363766980827465,
-                "sample": "NA20908",
-                "pop": "GIH",
-                "super_pop": "SAS",
-                "gender": "female",
-                "color": "#DE3163"
-               }
-        ]
-    }
-]
+    series: datajson
 });
 
 

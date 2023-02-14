@@ -4,16 +4,14 @@ from functools import wraps
 # import jwt
 # from jwt.algorithms import get_default_algorithms
 import pandas as pd
-
 from flask import request, jsonify, Blueprint
-
 # from gen_config.read_config import read_json_config
 # from controller.api_connector import Authorization
 # from controller.read_configs import read_json_config
 # from service.get_classification_service import get_classification
 # from service.reduce_dimension_service import reduce_dimen
 from utils.constants import AUTH_VALIDATION_TIME
-from workflow.data_training_workflow import data_training_workflow
+from workflow.data_pipeline_workflow import data_training_workflow,data_testing_workflow
 
 api = Blueprint('find-yourself', __name__, url_prefix='/v1')
 
@@ -47,29 +45,17 @@ api = Blueprint('find-yourself', __name__, url_prefix='/v1')
 #         return jsonify({'token': token})
 #     return jsonify({'ERROR': 'invalid authentication'})
 
-
 @api.get('/test')
 def test_api():
     return jsonify({'status': 'success'})
 
-
-@api.get('/get_dim_red')
-# def dim_red_api():
-#     data = request.get_json()
-#     print(data)
-#     input = data['data']
-#     print(input)
-#     X_red = reduce_dimen(input, algorithm='PCA', n_components=3)
-#     print(X_red)
-#     data = pd.DataFrame(X_red, columns=["a","b","c"])
-#     target = [1, 2, 1, 1, 3]
-#     get_classification(data, target)
-#
-#     return jsonify({'status': 'success'})
-
-
-@api.get('/get_dim_red')
+@api.get('/training')
 def get_training():
     data_training_workflow()
-
     return jsonify({'status': 'success'})
+
+@api.get('/testing')
+def get_testing():
+    genome_test=pd.read_csv("workflow/services/external_data/genome_test.csv")
+    data_testing_workflow(genome_test)
+    return jsonify({'status': 'success'})    
