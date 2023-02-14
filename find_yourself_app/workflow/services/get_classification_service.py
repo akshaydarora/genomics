@@ -19,7 +19,6 @@ def get_classification_test(data,df):
     # # Predict on test data
    y_predicted = classifier.predict_proba(data[["x","y","z"]])
    y_output=pd.DataFrame(y_predicted)
-   print(y_output)
    return y_output
 
 
