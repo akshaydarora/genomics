@@ -10,9 +10,11 @@ In this project, our app demonstrates a visualization tool that helps in visuali
 To make this data visualization tool more powerful and actionable as a real-world application, we wanted to explore the behavior of new-datapoints (or “new human samples”) in our dataset. To explain how these new datapoints will be classified, we demonstrate an end-to-end machine learning data-pipeline. This pipeline performs data pre-processing, data aggregation, one-hot encoding, dimensionality reduction , model training and finally testing on the new data-points.
    
 2. Problem Statement
+
 The genomics research collaborative initiative wants to accomplish a scientific goal of understanding the patterns of genetic variants like SNPs (single nucleotide polymorphisms) among human populations across the world. The genetic data is complex and high-dimensional and there is a need to visualize the data in a simplified manner.
 
 4. References
+
 [1] https://www.internationalgenome.org/data
 [2] The 1000 Genomes Project Consortium. An integrated map of genetic variation from 1,092 human genomes. Nature 491, 56–65 (2012). https://doi.org/10.1038/nature11632
 [3] https://www.kaggle.com/datasets/kevinarvai/ancestry-informative-snps
