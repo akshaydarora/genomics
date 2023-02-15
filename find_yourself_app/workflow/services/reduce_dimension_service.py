@@ -31,6 +31,7 @@ def reduce_dimension_service(df,ohe, algorithm='PCA', n_components=1):
     pca_df["pop_zone"]=pca_df["super_pop"].map(super_pop_lookup)
     return pca_df
 
+
 def reduce_dimension_service_test(ohe,algorithm,genome_test):
     color_lookup={"EAS":"#FFBF00","AFR":"#40E0D0","AMR":"#DE3163","EUR":"#6495ED","SAS":"#AF7AC5"}
     super_pop_lookup={"EAS":"EAST ASIA","AFR":"AFRICA","AMR":"AMERICA","EUR":"EUROPE","SAS":"SOUTH ASIA"}
@@ -43,5 +44,3 @@ def reduce_dimension_service_test(ohe,algorithm,genome_test):
         pca_df["color"]=pca_df["super_pop"].map(color_lookup)
         pca_df["pop_zone"]=pca_df["super_pop"].map(super_pop_lookup)
     return pca_df
-
-    

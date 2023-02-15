@@ -6,6 +6,7 @@ from .services.ohe_service import get_one_hot_encoding,get_one_hot_encoding_test
 import warnings
 warnings.filterwarnings(action="ignore",category=DeprecationWarning)
 
+
 def data_training_workflow():
     genome_samples,genome_fact,genome_fact_pivot,genome_asinp = data_processor()
     print("data_preprocessing done...! ")
@@ -26,6 +27,7 @@ def data_training_workflow():
     print("writing table :genome_asinp ")
     data_loader_db("genome_asinp", genome_asinp)
 
+
 def data_testing_workflow(genome_test):
     genome_fact, genome_fact_pivot, genome_asinp=data_processor_test(genome_test)
     print("data_preprocessing done...! ")
@@ -37,9 +39,4 @@ def data_testing_workflow(genome_test):
     test_class=get_classification_test(dim_red,genome_test)   
     print("classfication done..!")
     print(test_class)
-    # print("writing table :genome_fact_pivot ")
-    # data_loader_db("genome_test_request", genome_fact_pivot)
-
-  
-
-    
+ 
