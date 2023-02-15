@@ -1,6 +1,8 @@
 # genomics
 Find Yourself App for genomics data
 
+![image](https://user-images.githubusercontent.com/26202862/218895770-07a83fbc-e9cd-4939-a113-68ab5a79cdb6.png)
+
 1. Introduction
 
 The Find Yourself App is inspired from the 1000 Genomes Project that studied the human genetic variation in between the 1000 unidentified individuals across the world. The goal of that initiative was to use the next generation sequencing technologies to provide a resource of genetic variants like SNPs (single nucleotide polymorphisms) to study the common human diseases that are associated with their genes.
@@ -15,4 +17,5 @@ The genomics research collaborative initiative wants to accomplish a scientific 
 [2] The 1000 Genomes Project Consortium. An integrated map of genetic variation from 1,092 human genomes. Nature 491, 56–65 (2012). https://doi.org/10.1038/nature11632
 [3] https://www.kaggle.com/datasets/kevinarvai/ancestry-informative-snps
 [4] http://ftp.1000genomes.ebi.ac.uk/
+
 
