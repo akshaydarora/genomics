@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 
 
-
 def get_sql_conn():
     # credentials to be stored in config
     engine = create_engine('postgresql://akshay:seguinbenn@0.0.0.0:5432/genome')

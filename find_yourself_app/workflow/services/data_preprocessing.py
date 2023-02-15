@@ -8,6 +8,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 class DataPreprocessing(object):
 
+
     def __init__(self, local_dir, external_dir, genome_lookup, ftp_resource_url, ftp_resource, ftp_subresource,
                  vcf_file, asinp_file,genome_test_file):
         self.dir_name=os.path.dirname(os.path.realpath(__file__))        
@@ -20,6 +21,7 @@ class DataPreprocessing(object):
         self.vcf_file = vcf_file
         self.asinp_file = asinp_file
         self.genome_test_file=genome_test_file
+
 
     def getFtpData(self):
         ftp_path = os.path.join(self.ftp_resource_url, self.ftp_resource, self.ftp_subresource).replace("\\", "/")
@@ -36,15 +38,18 @@ class DataPreprocessing(object):
             ftp_status = "sucessfully fetched data from FTP:{}".format(ftp_output[0])
         return ftp_status
 
+
     def vcfParser(self):
         vcf_file_path = os.path.join(self.external_dir, self.vcf_file).replace("\\", "/")
         vcf_reader = vcf.Reader(open(vcf_file_path), 'r')
         return vcf_reader
 
+
     def train_test_split(self,df,split_ratio):
         train_df=df[:round(df.shape[0]*split_ratio)]
         test_df=df[round(df.shape[0]*split_ratio):]
         return train_df,test_df 
+
 
     def getGenomeSamples(self):
         local_file_dir = os.path.join(self.local_dir, self.ftp_resource)
@@ -52,6 +57,7 @@ class DataPreprocessing(object):
         genome_samples = pd.read_csv(local_file_path, sep="\t")
         genome_samples = genome_samples[['sample', 'pop', 'super_pop', 'gender']]
         return genome_samples
+
 
     def getGenomeFact(self,genome_samples):
         vcf_reader = self.vcfParser()
@@ -74,9 +80,11 @@ class DataPreprocessing(object):
         genome_fact=genome_fact[genome_fact["sample"].isin(genome_samples["sample"])].reset_index(drop=True)
         return genome_fact
 
+
     def getGenomeFactPivot(self, genome_fact):
         genome_fact_pivot = genome_fact.pivot(index='sample', columns='variant', values='genotype_enc')
         return genome_fact_pivot
+
 
     def getGenomeASINP(self):
         asinp_file_path = os.path.join(self.external_dir, self.asinp_file)
@@ -85,6 +93,7 @@ class DataPreprocessing(object):
         df_kidd.columns = ["snp_rs", "chrom", "build_37_nt_pos", "pop_73_fst"]
         df_kidd.loc[df_kidd.index, "build_37_nt_pos"] = df_kidd["build_37_nt_pos"].str.replace(",", "")
         return df_kidd
+
 
     def genome_dataset(self,genome_samples):
         genome_fact = self.getGenomeFact(genome_samples)
@@ -95,6 +104,7 @@ class DataPreprocessing(object):
         print("preprocessed genome asinp :{}".format(genome_asinp.shape))
         print("preprocessing done.....!")
         return genome_fact, genome_fact_pivot, genome_asinp
+
 
     def preprocess_main(self):
         ftp_status = self.getFtpData()
@@ -107,6 +117,7 @@ class DataPreprocessing(object):
         genome_samples_test.to_csv(genome_samples_test_path,index=False)       
         genome_fact, genome_fact_pivot, genome_asinp=self.genome_dataset(genome_samples)
         return genome_samples, genome_fact, genome_fact_pivot, genome_asinp
+
 
     def preprocess_main_test(self,genome_samples):      
         genome_fact, genome_fact_pivot, genome_asinp=self.genome_dataset(genome_samples)
@@ -133,6 +144,7 @@ def data_processor():
     genome_samples, genome_fact, genome_fact_pivot, genome_asinp = dp.preprocess_main()
     return genome_samples, genome_fact, genome_fact_pivot, genome_asinp
 
+
 def data_processor_test(genome_test):
     dir_name=os.path.dirname(os.path.realpath(__file__))
     print(dir_name)
@@ -152,4 +164,4 @@ def data_processor_test(genome_test):
     dp = DataPreprocessing(local_dir, external_dir, genome_lookup, ftp_resource_url, ftp_resource, ftp_sub_resource,
                            vcf_file, asinp_file,genome_test_file)
     genome_fact, genome_fact_pivot, genome_asinp = dp.preprocess_main_test(genome_test)
-    return genome_fact, genome_fact_pivot, genome_asinp    
+    return genome_fact, genome_fact_pivot, genome_asinp   
