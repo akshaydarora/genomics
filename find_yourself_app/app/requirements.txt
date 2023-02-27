@@ -1,0 +1,9 @@
+flask
+sqlalchemy
+psycopg2-binary
+pandas
+gunicorn
+Jinja2
+MarkupSafe
+Werkzeug
+gunicorn
