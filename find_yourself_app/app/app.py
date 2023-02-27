@@ -74,4 +74,4 @@ if __name__ == '__main__':
         df_wheel_json=json.load(f)
     with open("data/pca_data.json","r") as f:
         df_pca_json=json.load(f)
-    app.run(host="0.0.0.0", port=80, debug=True)    
+    app.run(host="0.0.0.0")    

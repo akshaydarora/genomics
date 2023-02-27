@@ -1,0 +1,152 @@
+[
+ {
+  "from": "AFR",
+  "to": "rs192655",
+  "weight": 315,
+  "super_pop_rank": 1
+ },
+ {
+  "from": "AFR",
+  "to": "rs260690",
+  "weight": 310,
+  "super_pop_rank": 2
+ },
+ {
+  "from": "AFR",
+  "to": "rs200354",
+  "weight": 298,
+  "super_pop_rank": 3
+ },
+ {
+  "from": "AFR",
+  "to": "rs7722456",
+  "weight": 297,
+  "super_pop_rank": 4
+ },
+ {
+  "from": "AFR",
+  "to": "rs6990312",
+  "weight": 276,
+  "super_pop_rank": 5
+ },
+ {
+  "from": "EAS",
+  "to": "rs1800414",
+  "weight": 257,
+  "super_pop_rank": 1
+ },
+ {
+  "from": "EAS",
+  "to": "rs735480",
+  "weight": 249,
+  "super_pop_rank": 2
+ },
+ {
+  "from": "EAS",
+  "to": "rs1079597",
+  "weight": 245,
+  "super_pop_rank": 3
+ },
+ {
+  "from": "EAS",
+  "to": "rs870347",
+  "weight": 244,
+  "super_pop_rank": 4
+ },
+ {
+  "from": "EUR",
+  "to": "rs4833103",
+  "weight": 244,
+  "super_pop_rank": 1
+ },
+ {
+  "from": "EAS",
+  "to": "rs3811801",
+  "weight": 242,
+  "super_pop_rank": 5
+ },
+ {
+  "from": "EUR",
+  "to": "rs459920",
+  "weight": 238,
+  "super_pop_rank": 3
+ },
+ {
+  "from": "EUR",
+  "to": "rs7554936",
+  "weight": 238,
+  "super_pop_rank": 2
+ },
+ {
+  "from": "SAS",
+  "to": "rs917115",
+  "weight": 233,
+  "super_pop_rank": 2
+ },
+ {
+  "from": "SAS",
+  "to": "rs200354",
+  "weight": 233,
+  "super_pop_rank": 3
+ },
+ {
+  "from": "SAS",
+  "to": "rs2166624",
+  "weight": 233,
+  "super_pop_rank": 1
+ },
+ {
+  "from": "SAS",
+  "to": "rs4918664",
+  "weight": 231,
+  "super_pop_rank": 4
+ },
+ {
+  "from": "SAS",
+  "to": "rs1834619",
+  "weight": 229,
+  "super_pop_rank": 5
+ },
+ {
+  "from": "EUR",
+  "to": "rs2166624",
+  "weight": 218,
+  "super_pop_rank": 4
+ },
+ {
+  "from": "EUR",
+  "to": "rs2196051",
+  "weight": 217,
+  "super_pop_rank": 5
+ },
+ {
+  "from": "AMR",
+  "to": "rs2166624",
+  "weight": 161,
+  "super_pop_rank": 1
+ },
+ {
+  "from": "AMR",
+  "to": "rs798443",
+  "weight": 156,
+  "super_pop_rank": 2
+ },
+ {
+  "from": "AMR",
+  "to": "rs917115",
+  "weight": 154,
+  "super_pop_rank": 3
+ },
+ {
+  "from": "AMR",
+  "to": "rs192655",
+  "weight": 153,
+  "super_pop_rank": 4
+ },
+ {
+  "from": "AMR",
+  "to": "rs2238151",
+  "weight": 150,
+  "super_pop_rank": 5
+ }
+]
