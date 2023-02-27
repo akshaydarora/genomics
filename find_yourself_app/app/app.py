@@ -70,8 +70,8 @@ if __name__ == '__main__':
     #     json.dump(df_wheel_json,f,indent=1)
     # with open("data/pca_data.json","w") as f:
     #     json.dump(df_pca_json,f,indent=1)    
-    with open("data/df_wheel.json","r") as f:
+    with open("./data/df_wheel.json","r") as f:
         df_wheel_json=json.load(f)
-    with open("data/pca_data.json","r") as f:
+    with open("./data/pca_data.json","r") as f:
         df_pca_json=json.load(f)
     app.run(host="0.0.0.0")    
